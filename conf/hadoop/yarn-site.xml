@@ -16,4 +16,35 @@
         <name>yarn.resourcemanager.bind-host</name>
         <value>0.0.0.0</value>
     </property>
+
+    <property>
+        <name>yarn.log-aggregation-enable</name>
+        <value>true</value>
+        <final>true</final>
+    </property>
+    <property>
+        <name>yarn.log-aggregation.retain-seconds</name>
+        <value>86400</value>
+    </property>
+    <property>
+        <name>yarn.log-aggregation.retain-check-interval-seconds</name>
+        <value>86400</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.remote-app-log-dir</name>
+        <value>/tmp/logs</value>
+    </property>
+    <property>
+        <name>yarn.nodemanager.remote-app-log-dir-suffix</name>
+        <value>logs</value>
+    </property>
+    <!-- 其他配置 -->
+    <property>
+        <name>mapred.job.history.server.embedded</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>yarn.app.mapreduce.am.staging-dir</name>
+        <value>/hadoop_logs/yarn_staging</value>
+    </property>
 </configuration>

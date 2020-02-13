@@ -24,6 +24,7 @@ spec:
       pv: datanode3-pv
   accessModes:
     - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
   storageClassName: manual
   resources:
     requests:

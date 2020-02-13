@@ -1,47 +1,13 @@
 apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: namenode-pv
-  labels:
-    pv: namenode-pv
-spec:
-  storageClassName: manual
-  capacity:
-    storage: 5Gi
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Recycle
-  nfs:
-    server: k8s-master01
-    path: "/media/namenode"
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: namenode-pvc
-spec:
-  selector:
-    matchLabels:
-      pv: namenode-pv
-  accessModes:
-    - ReadWriteMany
-  storageClassName: manual
-  resources:
-    requests:
-      storage: 5Gi
----
-apiVersion: v1
 kind: Service
 metadata:
-  name: namenode
+  name: historyserver
   labels:
-    name: namenode
+    name: historyserver
 spec:
   ports:
     - port: 50070
       name: http
-      targetPort: 50070
-      nodePort: 32007
     - port: 8020
       name: hdfs
     - port: 50075
@@ -70,27 +36,29 @@ spec:
       name: yarn6
     - port: 8088
       name: yarn7
-    - port: 8188
+    - port: 19888
       name: historyserver
+      targetPort: 19888
+      nodePort: 32888
   selector:
-    name: namenode
+    name: historyserver
   type: NodePort
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: namenode
+  name: historyserver
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        name: namenode
+        name: historyserver
     spec:
-      hostname: namenode
+      hostname: historyserver
       containers:
-        - name: namenode
-          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/hadoop-on-k8s:v1
+        - name: historyserver
+          image: bde2020/hadoop-historyserver:1.1.0-hadoop2.7.1-java8
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 50070
@@ -123,15 +91,9 @@ spec:
               name: yarn6
             - containerPort: 8088
               name: yarn7
-            - containerPort: 8188
-              name: historyserver
+            - containerPort: 19888
+              name: yarn8
+
           env:
             - name: PROC_TYPE
-              value: namenode
-          volumeMounts:
-            - name: namenode
-              mountPath: /data/hadoop/dfs/name
-      volumes:
-        - name: namenode
-          persistentVolumeClaim:
-            claimName: namenode-pvc
+              value: historyserver

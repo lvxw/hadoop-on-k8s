@@ -10,6 +10,7 @@ spec:
     storage: 20Gi
   accessModes:
     - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
   nfs:
     server: k8s-node02
     path: "/media/datanode2"
