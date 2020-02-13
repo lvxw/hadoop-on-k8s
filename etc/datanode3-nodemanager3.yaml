@@ -10,6 +10,7 @@ spec:
     storage: 20Gi
   accessModes:
     - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
   nfs:
     server: k8s-node03
     path: "/media/datanode3"
@@ -24,7 +25,6 @@ spec:
       pv: datanode3-pv
   accessModes:
     - ReadWriteMany
-  persistentVolumeReclaimPolicy: Recycle
   storageClassName: manual
   resources:
     requests:
