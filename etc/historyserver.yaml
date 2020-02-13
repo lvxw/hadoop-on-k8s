@@ -39,7 +39,7 @@ spec:
     - port: 19888
       name: historyserver
       targetPort: 19888
-      nodePort: 32888
+      nodePort: 32766
   selector:
     name: historyserver
   type: NodePort
