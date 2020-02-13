@@ -1,0 +1,192 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: datanode3
+  labels:
+    name: datanode3
+spec:
+  ports:
+    - port: 50070
+      name: http
+    - port: 8020
+      name: hdfs
+    - port: 50075
+      name: hdfs1
+    - port: 50010
+      name: hdfs2
+    - port: 50020
+      name: hdfs3
+    - port: 9000
+      name: hdfs4
+    - port: 50090
+      name: hdfs5
+    - port: 31010
+      name: hdfs6
+    - port: 8030
+      name: yarn1
+    - port: 8031
+      name: yarn2
+    - port: 8032
+      name: yarn3
+    - port: 8033
+      name: yarn4
+    - port: 8040
+      name: yarn5
+    - port: 8042
+      name: yarn6
+    - port: 8088
+      name: yarn7
+    - port: 8188
+      name: historyserver
+  selector:
+    name: datanode3
+  clusterIP: None
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: datanode3
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: datanode3
+    spec:
+      hostname: datanode3
+      containers:
+        - name: datanode3
+          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/hadoop
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 50070
+              name: http
+            - containerPort: 8020
+              name: hdfs
+            - containerPort: 50075
+              name: hdfs1
+            - containerPort: 50010
+              name: hdfs2
+            - containerPort: 50020
+              name: hdfs3
+            - containerPort: 9000
+              name: hdfs4
+            - containerPort: 50090
+              name: hdfs5
+            - containerPort: 31010
+              name: hdfs6
+            - containerPort: 8030
+              name: yarn1
+            - containerPort: 8031
+              name: yarn2
+            - containerPort: 8032
+              name: yarn3
+            - containerPort: 8033
+              name: yarn4
+            - containerPort: 8040
+              name: yarn5
+            - containerPort: 8042
+              name: yarn6
+            - containerPort: 8088
+              name: yarn7
+            - containerPort: 8188
+              name: historyserver
+          env:
+          - name: PROC_TYPE
+            value: datanode
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodemanager3
+  labels:
+    name: nodemanager3
+spec:
+  ports:
+    - port: 50070
+      name: http
+    - port: 8020
+      name: hdfs
+    - port: 50075
+      name: hdfs1
+    - port: 50010
+      name: hdfs2
+    - port: 50020
+      name: hdfs3
+    - port: 9000
+      name: hdfs4
+    - port: 50090
+      name: hdfs5
+    - port: 31010
+      name: hdfs6
+    - port: 8030
+      name: yarn1
+    - port: 8031
+      name: yarn2
+    - port: 8032
+      name: yarn3
+    - port: 8033
+      name: yarn4
+    - port: 8040
+      name: yarn5
+    - port: 8042
+      name: yarn6
+    - port: 8088
+      name: yarn7
+    - port: 8188
+      name: historyserver
+  selector:
+    name: nodemanager3
+  clusterIP: None
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: nodemanager3
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: nodemanager3
+    spec:
+      hostname: nodemanager3
+      containers:
+        - name: nodemanager3
+          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/hadoop-on-k8s:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 50070
+              name: http
+            - containerPort: 8020
+              name: hdfs
+            - containerPort: 50075
+              name: hdfs1
+            - containerPort: 50010
+              name: hdfs2
+            - containerPort: 50020
+              name: hdfs3
+            - containerPort: 9000
+              name: hdfs4
+            - containerPort: 50090
+              name: hdfs5
+            - containerPort: 31010
+              name: hdfs6
+            - containerPort: 8030
+              name: yarn1
+            - containerPort: 8031
+              name: yarn2
+            - containerPort: 8032
+              name: yarn3
+            - containerPort: 8033
+              name: yarn4
+            - containerPort: 8040
+              name: yarn5
+            - containerPort: 8042
+              name: yarn6
+            - containerPort: 8088
+              name: yarn7
+            - containerPort: 8188
+          env:
+            - name: PROC_TYPE
+              value: nodemanager
