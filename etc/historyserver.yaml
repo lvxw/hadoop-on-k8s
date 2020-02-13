@@ -58,7 +58,7 @@ spec:
       hostname: historyserver
       containers:
         - name: historyserver
-          image: bde2020/hadoop-historyserver:1.1.0-hadoop2.7.1-java8
+          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/hadoop-on-k8s:v1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 50070
@@ -93,7 +93,8 @@ spec:
               name: yarn7
             - containerPort: 19888
               name: yarn8
-
+              targetPort: 19888
+              nodePort: 32888
           env:
             - name: PROC_TYPE
               value: historyserver
