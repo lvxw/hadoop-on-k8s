@@ -37,9 +37,9 @@ spec:
     - port: 8088
       name: yarn7
     - port: 19888
-      name: historyserver
+      name: yarn8
       targetPort: 19888
-      nodePort: 32
+      nodePort: 32766
   selector:
     name: historyserver
   type: NodePort
@@ -58,7 +58,7 @@ spec:
       hostname: historyserver
       containers:
         - name: historyserver
-          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/hadoop-on-k8s:v1
+          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/k8s-hadoop-2.7.7:v1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 50070

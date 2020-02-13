@@ -90,7 +90,7 @@ spec:
       hostname: namenode
       containers:
         - name: namenode
-          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/hadoop-on-k8s:v1
+          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/k8s-hadoop-2.7.7:v1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 50070

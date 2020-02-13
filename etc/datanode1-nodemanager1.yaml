@@ -88,7 +88,7 @@ spec:
       hostname: datanode1
       containers:
         - name: datanode1
-          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/hadoop-on-k8s:v1
+          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/k8s-hadoop-2.7.7:v1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 50070
@@ -192,7 +192,7 @@ spec:
       hostname: nodemanager1
       containers:
         - name: nodemanager1
-          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/hadoop-on-k8s:v1
+          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/k8s-hadoop-2.7.7:v1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 50070
