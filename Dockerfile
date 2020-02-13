@@ -1,6 +1,6 @@
 FROM centos:7
 WORKDIR /usr/local/src
-RUN yum -y install vim wget dos2unix netstat which java-1.8.0-openjdk-devel.x86_64 && \
+RUN yum -y install vim wget dos2unix net-tools which java-1.8.0-openjdk-devel.x86_64 && \
     echo 'export JAVA_HOME=/usr/lib/jvm/java' >> /etc/profile && \
     echo 'export PATH=${PATH}:${JAVA_HOME}/bin' >> /etc/profile
 RUN wget https://mirrors.tuna.tsinghua.edu.cn/apache/hadoop/common/hadoop-2.7.7/hadoop-2.7.7.tar.gz
