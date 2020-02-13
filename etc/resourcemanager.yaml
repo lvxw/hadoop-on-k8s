@@ -36,11 +36,13 @@ spec:
       name: yarn6
     - port: 8088
       name: yarn7
+      targetPort: 8088
+      nodePort: 32088
     - port: 8188
       name: historyserver
   selector:
     name: resourcemanager
-  clusterIP: None
+  type: NodePort
 ---
 apiVersion: apps/v1beta1
 kind: Deployment

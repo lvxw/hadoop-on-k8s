@@ -8,6 +8,8 @@ spec:
   ports:
     - port: 50070
       name: http
+      targetPort: 50070
+      nodePort: 32007
     - port: 8020
       name: hdfs
     - port: 50075
@@ -40,7 +42,7 @@ spec:
       name: historyserver
   selector:
     name: namenode
-  clusterIP: None
+  type: NodePort
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
