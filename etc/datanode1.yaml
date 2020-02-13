@@ -56,7 +56,7 @@ spec:
       hostname: datanode1
       containers:
         - name: datanode1
-          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/hadoop-on-k8s:v1
+          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/hadoop
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 50070
@@ -91,6 +91,6 @@ spec:
               name: yarn7
             - containerPort: 8188
               name: historyserver
-           env:
-            - name: PROC_TYPE
-              value: datanode
+          env:
+          - name: PROC_TYPE
+            value: datanode
