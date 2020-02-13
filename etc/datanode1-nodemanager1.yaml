@@ -56,7 +56,7 @@ spec:
       hostname: datanode1
       containers:
         - name: datanode1
-          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/hadoop
+          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/hadoop-on-k8s:v1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 50070
