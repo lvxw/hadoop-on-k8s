@@ -12,7 +12,7 @@ RUN tar -zxvf /usr/local/src/hadoop-2.7.7.tar.gz -C /usr/local/ && \
     echo 'export HADOOP_HOME=/usr/local/hadoop' >> /etc/profile && \
     echo 'export PATH=${PATH}:${HADOOP_HOME}/bin:${HADOOP_HOME}/sbin' >> /etc/profile && \
     mkdir -p /data/hadoop/dfs/name /data/hadoop/dfs/data
-COPY conf/hadoop/* /usr/local/hadoop/etc/hadoop/
+COPY conf/* /usr/local/hadoop/etc/hadoop/
 COPY bin/start-hadoop-process.sh /usr/local/bin/
 RUN dos2unix /usr/local/hadoop/etc/hadoop/* /usr/local/bin/start-hadoop-process.sh
 RUN  chmod 755 /usr/local/bin/*

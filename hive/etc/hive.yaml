@@ -1,0 +1,44 @@
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    app: hive
+  name: hive-service
+spec:
+  ports:
+    - port: 10000
+      targetPort: 10000
+      nodePort: 31000 
+      name: thrift
+    - port: 10002
+      targetPort: 10002
+      name: webui
+    - port: 9083
+      targetPort: 9083
+      name: metastore
+  selector:
+    app: hive
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hive
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hive
+  template:
+    metadata:
+      labels:
+        app: hive
+    spec:
+      containers:
+        - name: hive
+          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/k8s-image-1.2.2:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 10000
+            - containerPort: 10002
+            - containerPort: 9083
