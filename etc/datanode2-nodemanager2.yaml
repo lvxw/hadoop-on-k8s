@@ -1,4 +1,35 @@
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: datanode2-pv
+  labels:
+    pv: datanode2-pv
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: k8s-node02
+    path: "/media/datanode2"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: datanode2-pvc
+spec:
+  selector:
+    matchLabels:
+      pv: datanode2-pv
+  accessModes:
+    - ReadWriteMany
+  storageClassName: manual
+  resources:
+    requests:
+      storage: 20Gi
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: datanode2
@@ -94,6 +125,13 @@ spec:
           env:
           - name: PROC_TYPE
             value: datanode
+          volumeMounts:
+            - name: datanode2
+              mountPath: /data/hadoop/dfs/data
+      volumes:
+        - name: datanode2
+          persistentVolumeClaim:
+            claimName: datanode2-pvc
 ---
 apiVersion: v1
 kind: Service
