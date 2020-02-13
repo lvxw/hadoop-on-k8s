@@ -16,4 +16,4 @@ COPY conf/hadoop/* /usr/local/hadoop/etc/hadoop/
 COPY bin/start-hadoop-process.sh /usr/local/bin/
 RUN dos2unix /usr/local/hadoop/etc/hadoop/* /usr/local/bin/start-hadoop-process.sh
 RUN  chmod 755 /usr/local/bin/*
-CMD /usr/local/bin/start-hadoop-process.sh
+CMD /usr/local/bin/start-hadoop-process.sh && tail -f /etc/profile
