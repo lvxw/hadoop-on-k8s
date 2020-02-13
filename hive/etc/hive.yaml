@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
         - name: hive
-          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/k8s-image-1.2.2:v1
+          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/k8s-hive-1.2.2:v1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 10000
