@@ -21,9 +21,9 @@ RUN tar -zxvf /usr/local/src/apache-hive-1.2.2-bin.tar.gz -C /usr/local/ && \
     echo 'export HIVE_HOME=/usr/local/hive' >> /root/.bashrc && \
     echo 'export PATH=${PATH}:${HIVE_HOME}/bin' >> /root/.bashrc
 COPY conf/hive/* /usr/local/hive/conf/
-COPY lib/mysql-connector-java-5.1.44.jar /usr/local/hive/lib/
 COPY conf/hive/* /usr/local/hive/conf/
 COPY bin/start-hive-process.sh /usr/local/bin/
+RUN wget -p /usr/local/hive/lib/ https://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.48/mysql-connector-java-5.1.48.jar 
 RUN dos2unix /usr/local/hive/conf/* /usr/local/bin/*
 RUN chmod 755 /usr/local/bin/*
 CMD /usr/local/bin/start-hive-process.sh && tail -f /root/.bashrc
