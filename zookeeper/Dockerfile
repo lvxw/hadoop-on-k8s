@@ -12,6 +12,6 @@ RUN tar -zxvf /usr/local/src/zookeeper-3.4.14.tar.gz -C /usr/local/ && \
     echo 'export PATH=${PATH}:${ZOOKEEPER_HOME}/bin' >> /root/.bashrc
 COPY conf/* /usr/local/zookeeper/conf/
 COPY bin/start-zookeeper-process.sh /usr/local/bin/
-RUN dos2unix /usr/local/hive/conf/* /usr/local/bin/*
+RUN dos2unix /usr/local/zookeeper/conf/* /usr/local/bin/*
 RUN chmod 755 /usr/local/bin/*
 CMD /usr/local/bin/start-zookeeper-process.sh && tail -f /root/.bashrc

@@ -61,10 +61,10 @@ spec:
     metadata:
       labels:
         app: zookeeper2
-    spec: zookeeper2
+    spec:
       terminationGracePeriodSeconds: 10
       containers:
-      - name:  zookeeper2
+      - name: zookeeper2
         image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/k8s-zookeeper-3.4.14:v1
         env:
         - name: NODE_NUMBER
