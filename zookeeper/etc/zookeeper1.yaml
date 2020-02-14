@@ -33,7 +33,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: zookeeper1-svc
+  name: zookeeper1
   labels:
     name: zookeeper1
 spec:
