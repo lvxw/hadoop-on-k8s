@@ -43,7 +43,7 @@ spec:
     protocol: TCP
     targetPort: 2181
     name: zookeeper2
-    nodePort: 32181
+    nodePort: 32185
   selector:
     app: zookeeper2
 ---
