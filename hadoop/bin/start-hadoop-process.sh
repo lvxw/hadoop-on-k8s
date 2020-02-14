@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source /etc/profile
+source /root/.bashrc
 
 if [[ $PROC_TYPE == "namenode" ]]
 then
