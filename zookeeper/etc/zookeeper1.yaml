@@ -52,17 +52,16 @@ kind: Deployment
 metadata:
   name: zookeeper1
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: zookeeper1
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
         app: zookeeper1
     spec:
-      terminationGracePeriodSeconds: 10
+      hostname: zookeeper1
       containers:
       - name: zookeeper1
         image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/k8s-zookeeper-3.4.14:v1
