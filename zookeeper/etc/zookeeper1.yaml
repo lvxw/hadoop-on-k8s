@@ -44,6 +44,10 @@ spec:
     targetPort: 2181
     name: zookeeper1
     nodePort: 32184
+  - port: 2888
+    name: rpc1
+  - port: 3888
+    name: rpc2
   selector:
     app: zookeeper1
 ---
@@ -71,6 +75,10 @@ spec:
         ports:
         - containerPort: 2181
           name: zookeeper1
+        - containerPort: 2888
+          name: rpc1
+        - containerPort: 3888
+          name: rpc2
         volumeMounts:
         - name: zookeeper1-persistent-storage
           mountPath: /data/zookeeper/data
