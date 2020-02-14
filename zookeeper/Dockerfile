@@ -7,7 +7,7 @@ RUN wget https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/zookeeper-3.4.14/
 RUN tar -zxvf /usr/local/src/zookeeper-3.4.14.tar.gz -C /usr/local/ && \
     ln -s /usr/local/zookeeper-3.4.14 /usr/local/zookeeper && \
     rm -rf /usr/local/src/zookeeper-3.4.14.tar.gz && \
-    mkdir -p /data/zookeeper/data /usr/local/zookeeper/logs && \
+    mkdir -p /data/zookeeper/data && \
     echo 'export ZOOKEEPER_HOME=/usr/local/zookeeper' >> /root/.bashrc && \
     echo 'export PATH=${PATH}:${ZOOKEEPER_HOME}/bin' >> /root/.bashrc
 COPY conf/* /usr/local/zookeeper/conf/
