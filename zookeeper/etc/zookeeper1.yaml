@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: zookeeper1-pv
+  labels:
+    pv: zookeeper1-pv
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  nfs:
+    server: k8s-node01
+    path: "/media/zookeeper1"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: zookeeper1-pvc
+spec:
+  selector:
+    matchLabels:
+      pv: zookeeper1-pv
+  accessModes:
+    - ReadWriteMany
+  storageClassName: manual
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper1-svc
+  labels:
+    name: zookeeper1
+spec:
+  type: NodePort
+  ports:
+  - port: 2181
+    protocol: TCP
+    targetPort: 2181
+    name: zookeeper1
+    nodePort: 32181
+  selector:
+    app: zookeeper1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zookeeper1
+spec:
+  selector:
+    matchLabels:
+      app: zookeeper1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: zookeeper1
+    spec: zookeeper1
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name:  zookeeper1
+        image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/k8s-zookeeper-3.4.14:v1
+        env:
+        - name: NODE_NUMBER
+          value: "1"
+        ports:
+        - containerPort: 2181
+          name: zookeeper1
+        volumeMounts:
+        - name: zookeeper1-persistent-storage
+          mountPath: /data/zookeeper/data
+      volumes:
+      - name: zookeeper1-persistent-storage
+        persistentVolumeClaim:
+          claimName: zookeeper1-pvc
