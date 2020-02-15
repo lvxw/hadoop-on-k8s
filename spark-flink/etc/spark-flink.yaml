@@ -1,0 +1,16 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: spark-flink
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: spark-flink
+    spec:
+      hostname: spark-flink
+      containers:
+        - name: spark-flink
+          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/k8s-spark-flink:v1
+          imagePullPolicy: IfNotPresent
