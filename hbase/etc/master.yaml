@@ -5,14 +5,16 @@ metadata:
   labels:
     name: master
 spec:
-    ports:
+  ports:
     - name: rpc1
       port: 16000
     - name: rpc2
       port: 16010
+      targetPort: 16010
+      nodePort: 32010
   selector:
     name: master
-  clusterIP: None
+  type: NodePort
 ---
 apiVersion: apps/v1beta1
 kind: Deployment

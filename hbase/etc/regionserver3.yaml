@@ -5,7 +5,7 @@ metadata:
   labels:
     name: regionserver3
 spec:
-    ports:
+  ports:
     - name: rpc1
       port: 16020
     - name: rpc2
