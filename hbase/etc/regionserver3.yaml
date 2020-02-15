@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: regionserver3
+  labels:
+    name: regionserver3
+spec:
+    ports:
+    - name: rpc1
+      port: 16020
+    - name: rpc2
+      port: 16030
+  selector:
+    name: regionserver3
+  clusterIP: None
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: regionserver3
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: regionserver3
+    spec:
+      hostname: regionserver3
+      containers:
+        - name: regionserver3
+          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/k8s-hbase-1.4.12:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 16020
+              protocol: TCP
+              name: rpc1
+            - containerPort: 16030
+              protocol: TCP
+              name: rpc2
+          env:
+          - name: PROC_TYPE
+            value: regionserver
