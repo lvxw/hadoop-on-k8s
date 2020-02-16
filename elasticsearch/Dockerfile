@@ -19,4 +19,6 @@ COPY bin/start-elasticsearch-process.sh /usr/local/bin/
 RUN dos2unix /usr/local/bin/* /usr/local/elasticsearch/config/*
 RUN chmod 755 /usr/local/bin/*
 RUN chown -R es:es  /usr/local/elasticsearch-6.1.0
+RUN chown -R es:es  /data/elasticsearch
+RUN su es
 CMD /usr/local/bin/start-elasticsearch-process.sh && tail -f /root/.bashrc
