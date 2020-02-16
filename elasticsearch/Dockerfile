@@ -13,12 +13,12 @@ RUN tar -zxvf /usr/local/src/elasticsearch-6.1.0.tar.gz -C /usr/local/ && \
     echo 'export JAVA_HOME=/usr/lib/jvm/java' >> /home/es/.bashrc && \
     echo 'export PATH=${PATH}:${JAVA_HOME}/bin' >> /home/es/.bashrc && \
     echo 'export ELASTICSEARCH_HOME=/usr/local/elasticsearch' >> /home/es/.bashrc && \
-    echo 'export PATH=${PATH}:${ELASTICSEARCH_HOME}/bin' >> /home/es/.bashrc
+    echo 'export PATH=${PATH}:${ELASTICSEARCH_HOME}/bin' >> /home/es/.bashrc && \
+    echo '/etc/sysctl.conf' >> /etc/sysctl.conf
 COPY conf/elasticsearch.yml /usr/local/elasticsearch/config/
 COPY bin/start-elasticsearch-process.sh /usr/local/bin/
 RUN dos2unix /usr/local/bin/* /usr/local/elasticsearch/config/*
 RUN chmod 755 /usr/local/bin/*
 RUN chown -R es:es  /usr/local/elasticsearch-6.1.0
 RUN chown -R es:es  /data/elasticsearch
-RUN su es
 CMD /usr/local/bin/start-elasticsearch-process.sh && tail -f /root/.bashrc
