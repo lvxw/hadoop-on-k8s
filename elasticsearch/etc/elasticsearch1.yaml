@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: elasticsearch1-pv
+  labels:
+    pv: elasticsearch1-pv
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  nfs:
+    server: k8s-node01
+    path: "/media/elasticsearch1"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: elasticsearch1-pvc
+spec:
+  selector:
+    matchLabels:
+      pv: elasticsearch1-pv
+  accessModes:
+    - ReadWriteMany
+  storageClassName: manual
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch1
+  labels:
+    name: elasticsearch1
+spec:
+  ports:
+    - name: http1
+      port: 9200
+      targetPort: 9200
+      nodePort: 32092
+    - name: http2
+      port: 9300
+      targetPort: 9300
+      nodePort: 32093
+  selector:
+    name: elasticsearch1
+  type: NodePort
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: elasticsearch1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: elasticsearch1
+    spec:
+      hostname: elasticsearch1
+      containers:
+        - name: elasticsearch1
+          image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/k8s-elasticsearch-6.1.0:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9200
+              name: http1
+            - containerPort: 9230
+              name: http2
+          env:
+          - name: NODE_NAME
+            value: elasticsearch1
+          volumeMounts:
+            - name: elasticsearch1-persistent-storage
+              mountPath: /data/elasticsearch/data
+      volumes:
+        - name: elasticsearch1-persistent-storage
+          persistentVolumeClaim:
+            claimName: elasticsearch1-pvc
