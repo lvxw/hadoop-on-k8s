@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: elasticsearch1-pv
+  name: elasticsearch3-pv
   labels:
-    pv: elasticsearch1-pv
+    pv: elasticsearch3-pv
 spec:
   storageClassName: manual
   capacity:
@@ -12,17 +12,17 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Recycle
   nfs:
-    server: k8s-node01
-    path: "/media/elasticsearch1"
+    server: k8s-node03
+    path: "/media/elasticsearch3"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: elasticsearch1-pvc
+  name: elasticsearch3-pvc
 spec:
   selector:
     matchLabels:
-      pv: elasticsearch1-pv
+      pv: elasticsearch3-pv
   accessModes:
     - ReadWriteMany
   storageClassName: manual
@@ -33,37 +33,37 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: elasticsearch1
+  name: elasticsearch3
   labels:
-    name: elasticsearch1
+    name: elasticsearch3
 spec:
   ports:
     - name: http1
       port: 9200
       targetPort: 9200
-      nodePort: 32012
+      nodePort: 32032
     - name: http2
       port: 9300
       targetPort: 9300
-      nodePort: 32013
+      nodePort: 32033
   selector:
-    name: elasticsearch1
+    name: elasticsearch3
   type: NodePort
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: elasticsearch1
+  name: elasticsearch3
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        name: elasticsearch1
+        name: elasticsearch3
     spec:
-      hostname: elasticsearch1
+      hostname: elasticsearch3
       containers:
-        - name: elasticsearch1
+        - name: elasticsearch3
           image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/k8s-elasticsearch-6.1.0:v1
           imagePullPolicy: IfNotPresent
           ports:
@@ -73,11 +73,11 @@ spec:
               name: http2
           env:
           - name: NODE_NAME
-            value: elasticsearch1
+            value: elasticsearch3
           volumeMounts:
-            - name: elasticsearch1-persistent-storage
+            - name: elasticsearch3-persistent-storage
               mountPath: /data/elasticsearch/data
       volumes:
-        - name: elasticsearch1-persistent-storage
+        - name: elasticsearch3-persistent-storage
           persistentVolumeClaim:
-            claimName: elasticsearch1-pvc
+            claimName: elasticsearch3-pvc
