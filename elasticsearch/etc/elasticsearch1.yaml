@@ -42,10 +42,6 @@ spec:
       port: 9200
       targetPort: 9200
       nodePort: 32012
-    - name: http2
-      port: 9300
-      targetPort: 9300
-      nodePort: 32013
   selector:
     name: elasticsearch1
   type: NodePort
@@ -69,7 +65,7 @@ spec:
           ports:
             - containerPort: 9200
               name: http1
-            - containerPort: 9230
+            - containerPort: 9300
               name: http2
           env:
           - name: NODE_NAME
