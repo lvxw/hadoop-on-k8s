@@ -42,6 +42,8 @@ spec:
       port: 9200
       targetPort: 9200
       nodePort: 32032
+    - name: http2
+      port: 9300
   selector:
     name: elasticsearch3
   type: NodePort
