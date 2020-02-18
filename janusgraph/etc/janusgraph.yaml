@@ -10,7 +10,7 @@ spec:
   - port: 8182
     name: janusgraph
     targetPort: 8182
-    nodePort: 28182
+    nodePort: 32182
   selector:
     app: janusgraph
 ---
