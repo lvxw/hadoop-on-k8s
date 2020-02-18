@@ -19,7 +19,6 @@ kind: DaemonSet
 metadata:
   name: janusgraph
 spec:
-  replicas: 3
   selector:
     matchLabels:
       app: janusgraph
