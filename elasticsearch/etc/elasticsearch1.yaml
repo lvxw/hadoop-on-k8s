@@ -67,9 +67,6 @@ spec:
               name: http1
             - containerPort: 9300
               name: http2
-          env:
-          - name: NODE_NAME
-            value: elasticsearch1
           volumeMounts:
             - name: elasticsearch1-persistent-storage
               mountPath: /data/elasticsearch/data

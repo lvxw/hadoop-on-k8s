@@ -20,11 +20,11 @@ cluster.name: k8s-es-cluster
 #
 # Use a descriptive name for the node:
 #
-node.name: NODE_NAME
+node.name: ${HOSTNAME}
 #
 # Add custom attributes to the node:
 #
-node.attr.rack: r1
+#node.attr.rack: r1
 #
 # ----------------------------------- Paths ------------------------------------
 #
@@ -52,7 +52,7 @@ bootstrap.memory_lock: false
 #
 # Set the bind address to a specific IP (IPv4 or IPv6):
 #
-network.host: NODE_NAME
+network.host: ${HOSTNAME}
 #
 # Set a custom port for HTTP:
 #
@@ -67,12 +67,11 @@ transport.tcp.port: 9300
 # Pass an initial list of hosts to perform discovery when new node is started:
 # The default list of hosts is ["127.0.0.1", "[::1]"]
 #
-discovery.zen.ping_timeout: 300s
 discovery.zen.ping.unicast.hosts: ["elasticsearch1", "elasticsearch2", "elasticsearch3"]
 #
 # Prevent the "split brain" by configuring the majority of nodes (total number of master-eligible nodes / 2 + 1):
 #
-discovery.zen.minimum_master_nodes: 1
+discovery.zen.minimum_master_nodes: 2
 #
 # For more information, consult the zen discovery module documentation.
 #
