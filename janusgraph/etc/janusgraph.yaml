@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: janusgraph
+  labels:
+    name: janusgraph
+spec:
+  type: NodePort
+  ports:
+  - port: 8182
+    name: janusgraph
+    targetPort: 8182
+    nodePort: 28182
+  selector:
+    app: janusgraph
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: janusgraph
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: janusgraph
+  template:
+    metadata:
+      labels:
+        app: janusgraph
+    spec:
+      hostname: janusgraph
+      containers:
+      - name: janusgraph
+        image: registry.cn-hangzhou.aliyuncs.com/lvxw_test/k8s-janusgraph-0.3.1:v1
+        ports:
+        - containerPort: 8182
+          name: janusgraph
