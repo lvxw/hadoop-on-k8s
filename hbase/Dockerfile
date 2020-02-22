@@ -24,7 +24,7 @@ RUN wget https://mirrors.tuna.tsinghua.edu.cn/apache/phoenix/apache-phoenix-4.15
 RUN tar -zxvf /usr/local/src/apache-phoenix-4.15.0-HBase-1.4-bin.tar.gz -C /usr/local/ && \
     ln -s /usr/local/apache-phoenix-4.15.0-HBase-1.4-bin /usr/local/phoenix && \
     rm -rf /usr/local/src/apache-phoenix-4.15.0-HBase-1.4-bin.tar.gz && \
-    echo 'export PHOENIX_HOME=/usr/local/hbase' >> /root/.bashrc && \
+    echo 'export PHOENIX_HOME=/usr/local/phoenix' >> /root/.bashrc && \
     echo 'export PATH=${PATH}:${PHOENIX_HOME}/bin' >> /root/.bashrc && \
     cp /usr/local/phoenix/phoenix-core-4.15.0-HBase-1.4.jar /usr/local/hbase/lib
 COPY bin/start-hbase-process.sh /usr/local/bin/

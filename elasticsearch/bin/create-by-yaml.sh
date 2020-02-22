@@ -1,5 +1,7 @@
 #!/bin/bash
 
+xcall "echo 'vm.max_map_count=262144' >> /etc/sysctl.conf && sysctl -p"
+
 elasticsearch_dir=$(cd $(dirname $0)/../ && pwd )
 
 echo ${elasticsearch_dir}
