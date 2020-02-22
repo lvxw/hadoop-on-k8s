@@ -20,6 +20,13 @@ RUN tar -zxvf /usr/local/src/hbase-1.4.12-bin.tar.gz -C /usr/local/ && \
     echo 'export HBASE_HOME=/usr/local/hbase' >> /root/.bashrc && \
     echo 'export PATH=${PATH}:${HBASE_HOME}/bin' >> /root/.bashrc
 COPY conf/hbase/* /usr/local/hbase/conf/
+RUN wget https://mirrors.tuna.tsinghua.edu.cn/apache/phoenix/apache-phoenix-4.15.0-HBase-1.4/bin/apache-phoenix-4.15.0-HBase-1.4-bin.tar.gz
+RUN tar -zxvf /usr/local/src/apache-phoenix-4.15.0-HBase-1.4-bin.tar.gz -C /usr/local/ && \
+    ln -s /usr/local/apache-phoenix-4.15.0-HBase-1.4-bin phoenix && \
+    rm -rf /usr/local/src/apache-phoenix-4.15.0-HBase-1.4-bin.tar.gz && \
+    echo 'export PHOENIX_HOME=/usr/local/hbase' >> /root/.bashrc && \
+    echo 'export PATH=${PATH}:${PHOENIX_HOME}/bin' >> /root/.bashrc && \
+    cp /usr/local/phoenix/phoenix-core-4.15.0-HBase-1.4.jar /usr/local/hbase/lib
 COPY bin/start-hbase-process.sh /usr/local/bin/
 RUN dos2unix /usr/local/hbase/conf/* /usr/local/bin/*
 RUN chmod 755 /usr/local/bin/*
