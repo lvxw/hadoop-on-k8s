@@ -26,7 +26,11 @@ RUN tar -zxvf /usr/local/src/apache-phoenix-4.15.0-HBase-1.4-bin.tar.gz -C /usr/
     rm -rf /usr/local/src/apache-phoenix-4.15.0-HBase-1.4-bin.tar.gz && \
     echo 'export PHOENIX_HOME=/usr/local/phoenix' >> /root/.bashrc && \
     echo 'export PATH=${PATH}:${PHOENIX_HOME}/bin' >> /root/.bashrc && \
-    cp /usr/local/phoenix/phoenix-core-4.15.0-HBase-1.4.jar /usr/local/hbase/lib
+    cp /usr/local/phoenix/phoenix-core-4.15.0-HBase-1.4.jar /usr/local/hbase/lib && \
+    cp /usr/local/phoenix/phoenix-4.15.0-HBase-1.4-server.jar /usr/local/hbase/lib && \
+    cp /usr/local/hbase/conf/hbase-site.xml /usr/local/phoenix/bin/ && \
+    cp /usr/local/hadoop/etc/hadoop/core-site.xml /usr/local/phoenix/bin/ && \
+    cp /usr/local/hadoop/etc/hadoop/hdfs-site.xml /usr/local/phoenix/bin/
 COPY bin/start-hbase-process.sh /usr/local/bin/
 RUN dos2unix /usr/local/hbase/conf/* /usr/local/bin/*
 RUN chmod 755 /usr/local/bin/*
